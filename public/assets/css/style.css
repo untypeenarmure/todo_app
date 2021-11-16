@@ -1,14 +1,8 @@
-body {
-    background-color: whitesmoke;
-}
-
 #tasksTable,
 .table-striped>tbody>tr:nth-of-type(odd)>* {
     color: red !important;
-    background-color: whitesmoke !important;
 }
 
 .table-striped>tbody>tr:nth-of-type(even)>* {
     color: teal !important;
-    background-color: whitesmoke !important;
 }

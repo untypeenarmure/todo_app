@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,6 +27,22 @@ class TaskController extends AbstractController
 
         return $this->render('task/index.html.twig', [
             'tasks' => $tasks,
+        ]);
+    }
+
+    /**
+     * @Route("/task/create", name="task_create")
+     */
+    public function createTask(Request $request) {
+        
+        $task = new Task;
+        $form = $this->createForm(TaskType::class, $task, []);
+
+
+
+
+        return $this->render('task/create.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
