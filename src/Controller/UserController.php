@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\TaskType;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,7 +60,7 @@ class UserController extends AbstractController
             //$user->setCreatedAt(new \DateTime());
         }
 
-        $form = $this->createForm(TaskType::class, $user, []);
+        $form = $this->createForm(UserType::class, $user, []);
 
         $form->handleRequest($request);
 
