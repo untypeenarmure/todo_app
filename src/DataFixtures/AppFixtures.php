@@ -2,14 +2,26 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Tag;
 use App\Entity\Task;
-use Faker\Factory;
+use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AppFixtures extends Fixture
-{
+class AppFixtures extends Fixture {
+
+    /**
+     * @var UserPasswordHasherInterface
+     */
+    private $encoder;
+
+    public function __construct(UserPasswordHasherInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // Création d'un nouvel objet Faker
@@ -45,6 +57,29 @@ class AppFixtures extends Fixture
 
             // On fait persister les données
             $manager->persist($task);
+        }
+
+        // Création d'utilisateurs
+
+        for($u = 0; $u < 5; $u++) {
+
+            // Création d'un objet User
+            $user = new User;
+
+            // Hashage du mdp avec les paramètres de sécurité de $user
+            // Dans config\packages\security.yaml
+            $hash = $this->encoder->hashPassword($user, "password");
+            $user->setPassword($hash);
+            
+            // Si Premier user créé, rôle = admin
+            if($u === 0) {
+                $user->setRoles(["ROLE_ADMIN"])
+                ->setEmail("admin@admin.fr");
+            } else {
+                $user->setEmail($faker->safeEmail());
+            }
+            
+            $manager->persist($user);
         }
 
         $manager->flush();
