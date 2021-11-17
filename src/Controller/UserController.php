@@ -57,11 +57,9 @@ class UserController extends AbstractController
         
         if (!$user) {
             $user = new User;
-            //$user->setCreatedAt(new \DateTime());
         }
 
         $form = $this->createForm(UserType::class, $user, []);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,6 +73,7 @@ class UserController extends AbstractController
         return $this->render('user/create.html.twig', [
             'form' => $form->createView()
         ]);
+        
     }
 
     /**
