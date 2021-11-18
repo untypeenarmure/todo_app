@@ -60,8 +60,10 @@ class UserController extends AbstractController
             $user = new User;
             $form = $this->createForm(UserType::class, $user, []);
         }
-
-        $form = $this->createForm(UserUpdateType::class, $user, []);
+        else{
+            $form = $this->createForm(UserUpdateType::class, $user, []);
+        }
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

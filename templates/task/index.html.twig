@@ -2,56 +2,65 @@
 
 {% block stylesheets %}
 
-    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+	<link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
 
 {% endblock %}
 
-{% block title %}Liste des tâches{% endblock %}
+{% block title %}Liste des tâches
+{% endblock %}
 
 {% block body %}
-    <div class="container">
+	<div class="container">
 
-        <a href="{{ path('task_create') }}" class="btn btn-primary">Ajouter</a>
+		<a href="{{ path('task_create') }}" class="btn btn-primary">Ajouter</a>
+		{% if is_granted('ROLE_ADMIN') %}
+			<a href="{{ path('user_listing') }}" class="btn btn-secondary">Gestion utilisateur</a>
+		{% endif %}
 
-        <table class="table-striped table-bordered" id="tasksTable">
-            <thead>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Catégorie</th>
-                <th>Date effective</th>
-                <th></th>
-                <th></th>
-            </thead>
-                <tbody>
-                {% if tasks is defined %}
-                    {% for task in tasks %}
-                    <tr>
-                        <th scope='row'>{{ task.id }}</th>
-                            <td>{{ task.name }}</td>
-                            <td>{{ task.description }}</td>
-                            <td>{{ task.tag.name }}</td>
-                            <td>{{ task.dueat | date('d/m/y')}}</td>
-                            <td><a href="{{ path('task_update', {'id': task.id}) }}" class="btn btn-success">Update</a></td>
-                            <td><a href="{{ path('task_delete', {'id': task.id}) }}" class="btn btn-danger">Delete</a></td>
-                    </tr>
-                        
-                    {% endfor %}
-                {% endif %}
-                </tbody>
-        </table>
-    </div>
+
+		<table class="table-striped table-bordered" id="tasksTable">
+			<thead>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Description</th>
+				<th>Catégorie</th>
+				<th>Date effective</th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				{% if tasks is defined %}
+					{% for task in tasks %}
+						<tr>
+							<th scope='row'>{{ task.id }}</th>
+							<td>{{ task.name }}</td>
+							<td>{{ task.description }}</td>
+							<td>{{ task.tag.name }}</td>
+							<td>{{ task.dueat | date('d/m/y')}}</td>
+							<td>
+								<a href="{{ path('task_update', {'id': task.id}) }}" class="btn btn-success">Update</a>
+							</td>
+							<td>
+								<a href="{{ path('task_delete', {'id': task.id}) }}" class="btn btn-danger">Delete</a>
+							</td>
+						</tr>
+
+					{% endfor %}
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
 
 
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('#tasksTable').DataTable();
-        } );
-    </script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function () {
+$('#tasksTable').DataTable();
+});
+	</script>
 {% endblock %}
