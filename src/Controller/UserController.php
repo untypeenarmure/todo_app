@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserUpdateType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
@@ -57,9 +58,10 @@ class UserController extends AbstractController
         
         if (!$user) {
             $user = new User;
+            $form = $this->createForm(UserType::class, $user, []);
         }
 
-        $form = $this->createForm(UserType::class, $user, []);
+        $form = $this->createForm(UserUpdateType::class, $user, []);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
