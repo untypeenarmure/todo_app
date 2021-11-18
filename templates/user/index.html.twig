@@ -20,7 +20,6 @@
 				<th>Id</th>
 				<th>Email</th>
 				<th>Rôle</th>
-				<th>password</th>
 				<th></th>
 				<th></th>
 			</thead>
@@ -31,7 +30,6 @@
 							<th scope='row'>{{ user.id }}</th>
 							<td>{{ user.email }}</td>
 							<td>{{ user.roles |join(', ') }}</td>
-							<td>{{ user.password }}</td>
 							<td>
 								<a href="{{ path('user_update', {'id': user.id}) }}" class="btn btn-success">Update</a>
 							</td>

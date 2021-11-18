@@ -25,10 +25,17 @@ class UserType extends AbstractType
             ->add('email', TextType::class, [
                 'label'=> 'Email de la grosse tâche'
             ])
-            ->add('roles', ChoiceType::class, ['choices' => [
-                'Administrateur' => "ROLE_ADMIN",
-                'Utilisateur' => "ROLE_ADMIN",],
-                ])
+            ->add('roles', CollectionType::class, [
+               'entry_type' =>  ChoiceType::class, 
+               'entry_options' => [
+                   'choices' => [
+                    'Administrateur' => 'ROLE_ADMIN',
+                    'Utilisateur' => ''],
+                'label' => false,
+                'expanded'=> false,
+                'multiple'=> false
+                ]
+            ])
             ->add('password', TextType::class, [
                 'label'=> 'Mot de passe'
             ])
