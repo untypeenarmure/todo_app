@@ -26,9 +26,9 @@ class UserType extends AbstractType
                 'label'=> 'Email de la grosse tâche'
             ])
             ->add('roles', CollectionType::class, [
-               'entry_type' =>  ChoiceType::class, 
-               'entry_options' => [
-                   'choices' => [
+                'entry_type' =>  ChoiceType::class, 
+                'entry_options' => [
+                    'choices' => [
                     'Administrateur' => 'ROLE_ADMIN',
                     'Utilisateur' => 'ROLE_USER'],
                 'label' => false,
