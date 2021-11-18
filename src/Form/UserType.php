@@ -41,7 +41,8 @@ class UserType extends AbstractType
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'FO SESIR 2 FOI LE MEM',
+                'error_bubbling' => true,
+                'invalid_message' => '/!\ FO SESIR 2 FOI LE MEM',
                 // 'options' => ['attr' => ['class' => 'password-field']],
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
