@@ -17,6 +17,7 @@
 		{% if is_granted('ROLE_ADMIN') %}
 			<a href="{{ path('user_listing') }}" class="btn btn-secondary">Gestion utilisateur</a>
 		{% endif %}
+		<a href="{{ path('profil') }}" class="btn btn-warningVER">Mon profil</a>
 
 
 		<table class="table-striped table-bordered" id="tasksTable">
