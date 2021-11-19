@@ -62,10 +62,13 @@ class UserController extends AbstractController
      * @Route("/user/update/{id}", name="user_update", requirements={"id" = "\d+"})
      */
     public function user(User $user = null, Request $request) {
+
+        $moncul = false;
         
         if (!$user) {
             $user = new User;
             $form = $this->createForm(UserType::class, $user, []);
+            $moncul = true;
         }
         else{
             $form = $this->createForm(UserUpdateType::class, $user, []);
@@ -75,8 +78,11 @@ class UserController extends AbstractController
 
         // dd($user);
         if ($form->isSubmitted() && $form->isValid()) {
-            $hash = $this->encoder->hashPassword($user, $form['password']->getData());
-            $user->setPassword($hash);
+            
+            if ($moncul == true) {
+                $hash = $this->encoder->hashPassword($user, $form['password']->getData());
+                $user->setPassword($hash);
+            }
 
             $this->manager->persist($user);
             $this->manager->flush();
