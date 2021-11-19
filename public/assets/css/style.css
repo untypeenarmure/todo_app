@@ -6,3 +6,7 @@
 .table-striped>tbody>tr:nth-of-type(even)>* {
     color: teal !important;
 }
+
+.invalid-feedback d-block {
+    color: blanchedalmond !important;
+}

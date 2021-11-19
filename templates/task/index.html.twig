@@ -13,7 +13,17 @@
 {% block body %}
 	<div class="container">
 
-		<a href="{{ path('task_create') }}" class="btn btn-primary">Ajouter</a>
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="d-flex justify-content-center">
+					<p class="fw-bold text-{{ label }}">
+						{{ message }}
+					</p>
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		<a href="{{ path('task_create') }}" class="btn btn-primary">{{'general.button.add' | trans}}</a>
 		{% if is_granted('ROLE_ADMIN') %}
 			<a href="{{ path('user_listing') }}" class="btn btn-secondary">Gestion utilisateur</a>
 		{% endif %}
@@ -23,10 +33,10 @@
 		<table class="table-striped table-bordered" id="tasksTable">
 			<thead>
 				<th>Id</th>
-				<th>Nom</th>
-				<th>Description</th>
-				<th>Catégorie</th>
-				<th>Date effective</th>
+				<th>{{"general.name" | trans}}</th>
+				<th>{% trans from 'messages' %}general.description{% endtrans %}</th>
+				<th>{% trans from 'messages' %}general.category{% endtrans %}</th>
+				<th>{% trans from 'messages' %}general.due_date{% endtrans %}</th>
 				<th></th>
 				<th></th>
 			</thead>
@@ -40,10 +50,10 @@
 							<td>{{ task.tag.name }}</td>
 							<td>{{ task.dueat | date('d/m/y')}}</td>
 							<td>
-								<a href="{{ path('task_update', {'id': task.id}) }}" class="btn btn-success">Update</a>
+								<a href="{{ path('task_update', {'id': task.id}) }}" class="btn btn-success">{{'general.button.update' | trans}}</a>
 							</td>
 							<td>
-								<a href="{{ path('task_delete', {'id': task.id}) }}" class="btn btn-danger">Delete</a>
+								<a href="{{ path('task_delete', {'id': task.id}) }}" class="btn btn-danger">{{'general.button.delete' | trans}}</a>
 							</td>
 						</tr>
 
@@ -61,7 +71,21 @@
 	<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 	<script>
 		$(document).ready(function () {
-$('#tasksTable').DataTable();
+$('#tasksTable').DataTable(
+	{
+		language: {
+			"sLengthMenu": "{% trans from 'messages' %}datatables.sLengthMenu{% endtrans %}",
+			"sSearch": "{% trans from 'messages' %}datatables.sSearch{% endtrans %}",
+			"sInfo": "{% trans from 'messages' %}datatables.sInfo{% endtrans %}",
+			"sInfoEmpty": "Showing 0 to 0 of 0 records",
+			"paginate": {
+				"first": "{% trans from 'messages' %}datatables.first{% endtrans %}",
+				"previous": "{% trans from 'messages' %}datatables.previous{% endtrans %}",
+				"next": "{% trans from 'messages' %}datatables.next{% endtrans %}",
+				"last": "{% trans from 'messages' %}datatables.last{% endtrans %}"
+			}
+		}
+	});
 });
 	</script>
 {% endblock %}

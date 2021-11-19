@@ -15,6 +15,10 @@
 
 	</head>
 	<body>
+		<div>
+				<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ '_locale': 'en' })) }}">English</a>
+				<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ '_locale': 'fr' })) }}">French</a>
+		</div>
 		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 			<p>Connecté en tant que:
 				{{ app.user.email }}</p>
