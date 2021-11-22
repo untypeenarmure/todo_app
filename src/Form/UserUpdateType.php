@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Form\UserUpdateType;
 use Doctrine\DBAL\Types\JsonType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;

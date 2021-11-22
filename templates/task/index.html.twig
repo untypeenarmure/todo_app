@@ -24,6 +24,7 @@
 		{% endfor %}
 
 		<a href="{{ path('task_create') }}" class="btn btn-primary">{{'general.button.add' | trans}}</a>
+		<a href="{{ path('task_download') }}" class="btn btn-primary">{{'general.button.download' | trans}}</a>
 		{% if is_granted('ROLE_ADMIN') %}
 			<a href="{{ path('user_listing') }}" class="btn btn-secondary">Gestion utilisateur</a>
 		{% endif %}

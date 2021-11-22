@@ -1,0 +1,28 @@
+{% extends "pdf/base_pdf.html.twig" %}
+
+{% block body %}
+    <table border='1'>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>{{"general.name" | trans}}</th>
+            <th>{% trans from 'messages' %}general.description{% endtrans %}</th>
+            <th>{% trans from 'messages' %}general.category{% endtrans %}</th>
+            <th>{% trans from 'messages' %}general.due_date{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% if tasks is defined %}
+                {% for task in tasks %}
+                    <tr>
+                        <th scope='row'>{{ task.id }}</th>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.tag.name }}</td>
+                        <td>{{ task.dueat | date('d/m/y')}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
