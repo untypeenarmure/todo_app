@@ -69,6 +69,8 @@ class TaskController extends AbstractController
         if (!$task) {
             $task = new Task;
             $task->setCreatedAt(new \DateTime());
+            $user = $this->getUser();
+            $task->setUser($user);
         }
 
         
@@ -77,7 +79,6 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $this->manager->persist($task);
             $this->manager->flush();
             
