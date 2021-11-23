@@ -38,13 +38,22 @@ class TaskController extends AbstractController
     {   
         // Récupérer les infos de l'utilisateur connecté
         $user = $this->getUser();
-        //dd($user);
+        $role = $user->getRoles();
+        $id = $user->getId();
+        $admin = 'ROLE_ADMIN';
+        //dd($role);
+        //dd($admin);
 
         // Dans le repo, on récupère les entrées
-        $tasks = $this->repository->findAll();
+        if(in_array($admin, $role)){
+            $tasks = $this->repository->findAll();
+        }
+        else{
+            $tasks = $this->repository->findBy(['user' => $id ]);
+        };
         
         // Affichage dans le var_dumper
-        // dd($tasks);
+        //dd($tasks);
 
         return $this->render('task/index.html.twig', [
             'tasks' => $tasks,
