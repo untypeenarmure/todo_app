@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\ProfilType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProfilController extends AbstractController
 {
@@ -20,7 +21,9 @@ class ProfilController extends AbstractController
             'user' => $user,
         ]);
     }
-
+    /**
+     * @Route ("/profil/update", name="profil_update")
+     */
     public function updateProfil(){
         $user = $this->getUser();
 
