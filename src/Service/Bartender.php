@@ -22,6 +22,7 @@ class Bartender {
         return $beerListNameDescriptionDate;
     }
 
+    
     /**
     * @return array : beer list (name+name)
     */
