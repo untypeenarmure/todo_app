@@ -3,6 +3,9 @@ general:
   description: Description
   due_date: due_date
   category: Tag
+  backhomepage: Back to the Home Page
+  requestpage: The requested page couldn't be located. Checkout for any URL misspelling or
+  error403Titre: Access Denied
   button:
     success: Confirm
     cancel: Cancel
@@ -11,8 +14,8 @@ general:
     add: Croate
     download: Download
 datatables:
-    sLengthMenu: Show _MENU_ entries per page
-    sSearch: Search
-    sInfo: Showing _START_ to _END_ of _TOTAL_ entries
-    previous: Previous
-    next: Next
+  sLengthMenu: Show _MENU_ entries per page
+  sSearch: Search
+  sInfo: Showing _START_ to _END_ of _TOTAL_ entries
+  previous: Previous
+  next: Next
