@@ -29,12 +29,8 @@
 			<h2>Votre rôle</h2>
 			<h2>{{user.roles | join(" ,")}}</h2>
 			<br>
-			<h2>Votre mot de passe</h2>
-			<h2>{{user.password}}</h2>
-			<br>
-			<br>
 			<div>
-				<a href="{{ path('user_update', {'id': user.id}) }}" class="btn btn-success">Update</a>
+				<a href="{{ path('user_update', {'id': user.id}) }}" class="btn btn-success">Modifier vos informations et votre mot de passe</a>
 			</div>
 		</div>
 

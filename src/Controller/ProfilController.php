@@ -20,4 +20,10 @@ class ProfilController extends AbstractController
             'user' => $user,
         ]);
     }
+
+    public function updateProfil(){
+        $user = $this->getUser();
+
+        $form = $this->createForm(ProfilType::class, $user, []);
+    }
 }
