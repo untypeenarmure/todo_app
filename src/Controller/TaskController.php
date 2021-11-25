@@ -46,10 +46,10 @@ class TaskController extends AbstractController
 
         // Dans le repo, on récupère les entrées
         if(in_array($admin, $role)){
-            $tasks = $this->repository->findAll();
+            $tasks = $this->repository->findBy(array('is_archived' => '0'));
         }
         else{
-            $tasks = $this->repository->findBy(['user' => $id ]);
+            $tasks = $this->repository->findBy(['is_archived' => '0', 'user' => $id ]);
         };
         
         // Affichage dans le var_dumper
@@ -59,7 +59,34 @@ class TaskController extends AbstractController
             'tasks' => $tasks,
         ]);
     }
-
+    /**
+     *
+     * @Route("/task/archives", name="task_archives")
+     */
+    public function indexArchives():Response {
+         // Récupérer les infos de l'utilisateur connecté
+         $user = $this->getUser();
+         $role = $user->getRoles();
+         $id = $user->getId();
+         $admin = 'ROLE_ADMIN';
+         //dd($role);
+         //dd($admin);
+ 
+         // Dans le repo, on récupère les entrées
+         if(in_array($admin, $role)){
+             $tasks = $this->repository->findBy(array('is_archived' => '1'));
+         }
+         else{
+             $tasks = $this->repository->findBy(['is_archived' => '1', 'user' => $id ]);
+         };
+         
+         // Affichage dans le var_dumper
+         //dd($tasks);
+ 
+         return $this->render('task/archives.html.twig', [
+            'tasks' => $tasks,
+         ]);
+    }
     /**
      * @Route("/task/create", name="task_create")
      * @Route("/task/update/{id}", name="task_update", requirements={"id" = "\d+"})
@@ -138,4 +165,39 @@ class TaskController extends AbstractController
         ]);
         return new Response();
     }
+
+    public function checkDueAt(Task $task){
+        $flag = false;
+        $dueAt = $task->getDueAt();
+        $today = new \DateTime();
+
+        if($today > $dueAt){
+            $flag = true;
+        }
+        return $flag;
+    }
+    /**
+     * @Route("/task/archive/{id}", name="task_archive", requirements={"id"="\d+"})
+     */
+
+     public function archiveTasks(Task $task): Response {
+        if($this->checkDueAt($task)){
+            $task->setIsArchived(1);
+            $this->manager->persist($task);
+            $this->manager->flush();
+            $this->addFlash(
+                'success',
+                'La tâche est trop incrustée, bravo.'
+            );
+        }
+        else{
+            $this->addFlash(
+                'warning',
+                'Impossible de la faire partir cette pute, elle est pas encore au bout'
+            );
+        }
+
+        return $this->redirectToRoute('task_listing');
+     }
+
 }

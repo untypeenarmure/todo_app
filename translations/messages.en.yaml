@@ -6,6 +6,7 @@ general:
   backhomepage: Back to the Home Page
   requestpage: The requested page couldn't be located. Checkout for any URL misspelling or
   error403Titre: Access Denied
+  title_list_task: List of tasks
   button:
     success: Confirm
     cancel: Cancel
@@ -13,6 +14,9 @@ general:
     delete: Delete
     add: Croate
     download: Download
+    archive: Archive
+    back: Back
+    go_to_archive: See archives
 datatables:
   sLengthMenu: Show _MENU_ entries per page
   sSearch: Search
@@ -20,7 +24,7 @@ datatables:
   previous: Previous
   next: Next
 status:
-  title: Status
+  title: Blablabla
   1: To do
   2: In progress
   3: Done
