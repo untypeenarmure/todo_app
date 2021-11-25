@@ -1,12 +1,25 @@
 #tasksTable,
-.table-striped>tbody>tr:nth-of-type(odd)>* {
-    color: red !important;
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  color: black !important;
 }
 
-.table-striped>tbody>tr:nth-of-type(even)>* {
-    color: teal !important;
+.table-striped > tbody > tr:nth-of-type(even) > * {
+  color: black !important;
 }
-
+.table-striped > tbody > tr > * {
+  border: 0.1mm solid black;
+}
 .invalid-feedback d-block {
-    color: blanchedalmond !important;
+  color: blanchedalmond !important;
+}
+.status_1 {
+  background-color: lightgreen;
+}
+
+.status_3 {
+  background-color: rgb(233, 144, 144);
+}
+
+.status_2 {
+  background-color: rgb(243, 200, 120);
 }

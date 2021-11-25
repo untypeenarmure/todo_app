@@ -19,3 +19,8 @@ datatables:
   sInfo: Affichage de _START_ à _END_ sur _TOTAL_ entrées
   previous: Précédent
   next: Suivant
+status:
+  title: Statut
+  1: A faire
+  2: En cours
+  3: Fait

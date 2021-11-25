@@ -19,3 +19,8 @@ datatables:
   sInfo: Showing _START_ to _END_ of _TOTAL_ entries
   previous: Previous
   next: Next
+status:
+  title: Status
+  1: To do
+  2: In progress
+  3: Done

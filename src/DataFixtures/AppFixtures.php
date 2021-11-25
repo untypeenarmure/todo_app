@@ -6,6 +6,7 @@ use Faker\Factory;
 use App\Entity\Tag;
 use App\Entity\Task;
 use App\Entity\User;
+use App\Entity\Status;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -51,6 +52,12 @@ class AppFixtures extends Fixture {
             $manager->persist($user);
         }
 
+        for ($s = 1; $s<4; $s++){
+            $todo = new Status;
+            $todo->setLabel($s);
+            $manager->persist($todo);
+        }
+
         $manager->flush();
 
         // Création de 5 Catégories
@@ -63,11 +70,11 @@ class AppFixtures extends Fixture {
         // Faire persister les données
             $manager->persist($tag);
         }
-
         $manager->flush();
 
         $listeTags = $manager->getRepository(Tag::class)->findAll();
         $listeUsers = $manager->getRepository(User::class)->findAll();
+        $listeStatus = $manager->getRepository(Status::class)->findAll();
 
         // Création entre 15 et 30 tâches aléatoirement
         for ($t= 0; $t < mt_rand(15, 30); $t++) {
@@ -81,8 +88,8 @@ class AppFixtures extends Fixture {
                 ->setCreatedAt(new \DateTime())
                 ->setDueAt($faker->dateTimeBetween('now', '6 months'))
                 ->setTag($faker->randomElement(($listeTags)))
-                ->setUser($faker->randomElement($listeUsers));
-
+                ->setUser($faker->randomElement($listeUsers))
+                ->setStatus($faker->randomElement($listeStatus));
             // On fait persister les données
             $manager->persist($task);
 

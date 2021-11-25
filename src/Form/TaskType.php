@@ -6,6 +6,7 @@ use Bartender;
 use App\Entity\Tag;
 use App\Entity\Task;
 use Doctrine\ORM\EntityRepository;
+use App\Repository\StatusRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,9 +26,17 @@ class TaskType extends AbstractType
      */
     private $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    /**
+     *@var StatusRepository
+     *
+     */
+    private $repository;
+
+    public function __construct(TranslatorInterface $translator,StatusRepository $repository )
     {
         $this->translator = $translator;
+        $this->repository = $repository;
+
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -55,13 +64,23 @@ class TaskType extends AbstractType
                 },
                 'choice_label' => 'name'
             ])
+            ->add('status', ChoiceType::class, [
+                'choices' => [
+                $this->translator->trans("status.1") => $this->repository->findAll()[0],
+                $this->translator->trans("status.2") => $this->repository->findAll()[1],
+                $this->translator->trans("status.3") => $this->repository->findAll()[2]
+                ],
+                'label' => $this->translator->trans("general.status.title"),
+                'expanded' => false,
+                'multiple' => false
+                
+            ])
             ->add('save', SubmitType::class, [
                 'label'=> $this->translator->trans('general.button.success'),
                 'attr'=>[
                     'class'=> 'btn-light'
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

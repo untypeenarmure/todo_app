@@ -18,20 +18,10 @@ class ProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
         ->add('email', EmailType::class, [
             'label'=> 'Email de la grosse tâche'
-        ])
-        ->add('roles', CollectionType::class, [
-            'entry_type' =>  ChoiceType::class, 
-            'entry_options' => [
-                'choices' => [
-                'Administrateur' => 'ROLE_ADMIN',
-                'Utilisateur' => 'ROLE_USER'],
-            'label' => false,
-            'expanded'=> false,
-            'multiple'=> false
-            ]
         ])
         ->add('password', RepeatedType::class, [
             'type' => PasswordType::class,

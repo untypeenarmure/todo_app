@@ -55,9 +55,15 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'error_bubbling' => true,
                 'invalid_message' => '/!\ FO SESIR 2 FOI LE MEM',
-                'first_options'  => ['label' => 'Password'],
+                'first_options'  => ['label' => 'Password (doit contenir au moins 8 caractères'],
                 'second_options' => ['label' => 'Repeat Password'],
-                
+                'constraints' => [
+                    new Regex([
+                        'pattern'=>'/^[A-Za-z0-9]\w{8,}$/',
+                        'match'=> true,
+                        'message'=> 'Mot de passe trop court (min 8 caractères)'
+                        ]
+                    )]
             ])
             ->add('save', SubmitType::class, [
                 'label'=> 'Enregistrer',
